@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>In-Store Navigation — 3D Map Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- LEFT PANEL: Controls -->
+    <aside class="panel controls">
+      <h1>3D In-Store Navigation</h1>
+      <div class="section">
+        <label>Mode</label>
+        <select id="modeSelect">
+          <option value="customer">Customer</option>
+          <option value="shopkeeper">Shopkeeper</option>
+        </select>
+      </div>
+
+      <div class="section">
+        <label>Floor</label>
+        <div class="floors" id="floorBtns"></div>
+      </div>
+
+      <div class="section small">
+        <div>Mall Office (G) • Open: <strong id="openTime">10:00</strong> — Close: <strong id="closeTime">22:00</strong></div>
+      </div>
+
+      <div class="section">
+        <button id="addShop" class="btn">Add Shop</button>
+        <button id="saveLayout" class="btn">Save Layout</button>
+        <button id="exportJSON" class="btn">Export JSON</button>
+      </div>
+
+      <div class="section">
+        <label>Simulation speed</label>
+        <input id="speed" type="range" min="1" max="6" value="3" />
+      </div>
+
+      <div class="section">
+        <button id="demoRoute" class="btn primary">Demo Route</button>
+        <button id="clearPath" class="btn">Clear Path</button>
+      </div>
+
+      <div class="section legend">
+        <div class="chip">🏢 Mall Office</div>
+        <div class="chip">🚻 Washroom</div>
+        <div class="chip">⬆️ Escalator</div>
+        <div class="chip">🛒 Shop</div>
+      </div>
+    </aside>
+
+    <!-- CENTER: 3D Map Viewer -->
+    <main class="viewer panel">
+      <div class="toolbar">
+        <div id="floorLabel">Floor: G</div>
+        <div id="userLocationLabel">User: Not set</div>
+      </div>
+
+      <div class="map-scene">
+        <!-- A perspective container to create 3D illusion -->
+        <div id="map" class="map-grid" data-cols="12" data-rows="8"></div>
+      </div>
+
+      <div class="hint">Tip: Switch to <strong>Shopkeeper</strong> to add/edit shops. Click a tile to set user location or choose shops.</div>
+    </main>
+
+    <!-- RIGHT: Items & Details -->
+    <aside class="panel items">
+      <h2>Shops & Items</h2>
+      <div class="muted">Select shops (multi-select) then press <strong>Build Route</strong>.</div>
+
+      <div id="itemsList" class="items-list"></div>
+
+      <div class="actions">
+        <button id="buildRoute" class="btn primary">Build Route</button>
+        <button id="clearSelection" class="btn">Clear</button>
+      </div>
+
+      <div class="section details" id="details">No selection</div>
+    </aside>
+  </div>
+
+  <!-- Shopkeeper Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <h3 id="modalTitle">Edit Shop</h3>
+      <input id="shopName" placeholder="Shop name" />
+      <input id="shopItems" placeholder="Items (e.g. apple:30, soap:20)" />
+      <div class="modal-actions">
+        <button id="deleteShop" class="btn">Delete</button>
+        <button id="saveShop" class="btn primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avatar (positioned absolutely by JS) -->
+  <div id="avatar" class="avatar" style="display:none">U</div>
+
+  <!-- Path dots created by JS -->
+
+  <script src="script.js"></script>
+</body>
+</html>
